@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../assests/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assests/bootstrap/js/bootstrap.js">
+    <link rel="stylesheet" href="../assests/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assests/bootstrap/js/bootstrap.min.js">
+    <title>Title</title>
+
+    <style>
+        body{
+            background: whitesmoke;
+        }
+
+        .container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            border: 3px solid whitesmoke;
+            width: 100%;
+            height: 50px;
+        }
+
+        .sq{
+            width: 80px;
+            height: 30px;
+            background-color: whitesmoke;
+            border: 2px solid white;
+            margin: 0 5px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<button id="start">Start</button>
+<button id="stop">Stop</button>
+<div class="container">
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+    <div class="sq"></div>
+</div>
+
+<audio id="audio" src="../assests/Knight Rider Sms ! Knight Rider ! Theme.mp3"></audio>
+
+<script src="../assests/lib/jQuery/jquery-3.6.4.min.js"></script>
+
+<script>
+
+    var time;
+
+    var lightNumber = 0;
+    var direction= 'RIGHT';
+
+    var lights = $('.sq');
+    console.log(lights);
+
+
+    function updateLights() {
+        $('.sq').css({background:'whitesmoke'});
+
+
+        lights[lightNumber].style.background='red';
+
+        if (lightNumber > 0){
+            lights[lightNumber-1].style.background='burlywood';
+        }
+
+        if (lightNumber < 13){
+            lights[lightNumber+1].style.background='pink';
+        }
+
+        if (lightNumber === 13){
+            direction = 'LEFT';
+        }
+
+        if (direction === 'RIGHT'){
+            lightNumber++;
+        }else {
+            lightNumber--;
+        }
+
+        if (lightNumber === 0){
+            direction = 'RIGHT';
+        }
+
+        // lightNumber++;
+    }
+
+    document.getElementById("start").addEventListener('click',function () {
+        clearInterval(time);
+        time = setInterval(updateLights,50);
+    })
+
+
+    document.getElementById("stop").addEventListener('click',function () {
+        clearInterval(time);
+    })
+
+    $('#start').on('click', ()=>{
+        clearInterval(time);
+       $('#audio')[0].play();
+        time = setInterval(updateLights,50);
+    });
+
+    $('#stop').on('click', ()=>{
+        $('#audio')[0].pause();
+        clearInterval(time);
+    });
+
+
+</script>
+
+</body>
+</html>
